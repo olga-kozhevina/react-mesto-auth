@@ -6,8 +6,8 @@ function Header(props) {
     const { loggedIn, email, logOut } = props;
 
     const location = useLocation();
-    const emailLink = (location.pathname === '/sign-in') ? 'Регистрация' : 'Войти';
-    const buttonText = loggedIn ? 'Выйти' : emailLink;
+    const textLink = (location.pathname === '/sign-in') ? 'Регистрация' : 'Войти';
+    const buttonText = loggedIn ? 'Выйти' : textLink;
     const pathLink = (location.pathname === '/sign-in') ? '/sign-up' : '/sign-in';
 
     return (

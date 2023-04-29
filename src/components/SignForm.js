@@ -21,43 +21,41 @@ function SignForm(props) {
     }
 
     return (
-            <div className="popup">
-            <div className="popup__container">
-                <h3 className="popup__heading">{title}</h3>
                 <form
-                    className="popup__form"
+                    className="form"
                     name="signform"
                     onSubmit={handleSubmit} >
-                                    <div className="popup__form">
-                    <input
-                        type="email"
-                        className="popup__input"
-                        id="email-input"
-                        name="email"
-                        required=""
-                        placeholder="Email"
-                        onChange={handleEmail} />
-                    <span className="popup__error"></span>
-                    <input
-                        type="password"
-                        className="popup__input"
-                        id="password-input"
-                        name="password"
-                        required=""
-                        placeholder="Пароль"
-                        minLength={8}
-                        maxLength={50}
-                        onChange={handlePassword} />
-                    <span className="popup__error"></span>
-                </div>
+                    <h3 className="form__title">{title}</h3>
+                    <fieldset className="form__inputs">
+                        <input
+                            type="email"
+                            className="form__input"
+                            id="email-input"
+                            name="email"
+                            required=""
+                            placeholder="Email"
+                            value={email}
+                            onChange={handleEmail} />
+                        <span className="popup__error email-input-error"></span>
+                        <input
+                            type="password"
+                            className="form__input"
+                            id="password-input"
+                            name="password"
+                            required=""
+                            placeholder="Пароль"
+                            minLength={8}
+                            maxLength={50}
+                            value={password}
+                            onChange={handlePassword} />
+                        <span className="popup__error password-input-error"></span>
+                        </fieldset>
 
                     <button
-                        className="popup__submit-button"
+                        className="form__submit-button"
                         type="submit">{buttonText}</button>
-                    {isRegister && <span className="popup__error">Уже зарегистрированы? <Link to="/sign-in" className="popup__subtitle">Войти</Link></span>}
+                    {isRegister && <span className="form__subtitle">Уже зарегистрированы? <Link to="/sign-in" className="form__link">Войти</Link></span>}
                 </form>
-            </div>
-        </div>
     )
 }
 

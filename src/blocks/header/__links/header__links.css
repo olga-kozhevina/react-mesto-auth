@@ -1,0 +1,12 @@
+.header__links {
+    margin: 0;
+    padding: 0 27px 0;
+    display: flex;
+    align-items: start;
+}
+
+@media screen and (min-width: 900px) {
+    .header__links {
+        padding: 0;
+    }
+}

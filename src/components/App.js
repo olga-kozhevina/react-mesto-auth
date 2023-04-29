@@ -56,7 +56,7 @@ function App() {
     if (loggedIn) {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([user, cards]) => {
-        setCurrentUser((currentUser) => ({ ...currentUser, ...user }));
+        setCurrentUser({ ...currentUser, ...user });
         setCards(cards);
       })
       .catch((err) => {
@@ -65,7 +65,7 @@ function App() {
         showTooltipResponse(false);
       })
     }
-  }, [loggedIn, setCurrentUser]);
+  }, [loggedIn]);
 
   // закрываем все попапы
   const closeAllPopups = () => {
