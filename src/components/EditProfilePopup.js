@@ -4,7 +4,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function EditProfilePopup(props) {
 
-  const { isOpen, onClose } = props;
+  const { isOpen, onClose, download, renderDownload } = props;
 
   const currentUser = useContext(CurrentUserContext);
 
@@ -26,6 +26,7 @@ function EditProfilePopup(props) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    renderDownload();
     props.onUpdateUser({
       name,
       about
@@ -40,6 +41,8 @@ function EditProfilePopup(props) {
       onClose={onClose}
       onSubmit={handleSubmit}
       buttonText="Сохранить"
+      download={download}
+      downloadText="Сохранение..."
       children={
         <div className="popup__form">
           <input

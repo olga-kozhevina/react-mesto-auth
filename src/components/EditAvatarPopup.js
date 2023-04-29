@@ -3,12 +3,13 @@ import PopupWithForm from './PopupWithForm';
 
 function EditAvatarPopup(props) {
 
-  const { isOpen, onClose, onUpdateAvatar } = props;
+  const { isOpen, onClose, onUpdateAvatar, download, renderDownload } = props;
   const avatarRef = useRef(null);
 
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    renderDownload();
     onUpdateAvatar(avatarRef.current.value);
   }
 
@@ -26,6 +27,8 @@ function EditAvatarPopup(props) {
       onClose={onClose}
       onSubmit={handleSubmit}
       buttonText="Сохранить"
+      download={download}
+      downloadText="Обновление..."
       children={
         <div className="popup__form">
           <input

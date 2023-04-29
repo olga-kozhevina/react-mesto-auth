@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 function AddPlacePopup(props) {
-    const { isOpen, onClose, onAddPlace } = props;
+    const { isOpen, onClose, onAddPlace, download, renderDownload } = props;
 
     const [name, setName] = useState('');
     const [link, setLink] = useState('');
@@ -17,6 +17,7 @@ function AddPlacePopup(props) {
 
     function handleSubmit(evt) {
         evt.preventDefault();
+        renderDownload();
         onAddPlace({
             name, link
         });
@@ -35,6 +36,8 @@ function AddPlacePopup(props) {
             onClose={onClose}
             onSubmit={handleSubmit}
             buttonText="Создать"
+            download={download}
+            downloadText="Сохранение..."
             children={
                 <div className="popup__form">
                     <input

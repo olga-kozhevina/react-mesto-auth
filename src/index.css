@@ -53,3 +53,46 @@
 body {
     background: #000;
 }
+
+/* header */
+
+.header__links {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.header__email {
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.header__link {
+    text-decoration: none;
+    margin: 0;
+    padding: 0 0 0 24px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: rgba(154, 154, 154, 1);
+}
+
+.header__logout {
+    border: none;
+    padding: 0 0 0 24px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.popup__subtitle {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: calc(1 / 14 * 17);
+    margin: 0;
+    padding: 15px 0 0;
+    text-align: center;
+}
