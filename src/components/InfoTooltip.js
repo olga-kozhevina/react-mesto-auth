@@ -10,13 +10,13 @@ function InfoToolTip(props) {
 
     return (
         <div className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : ''}`}>
-        <div className="popup__container">
+        <div className="popup__container popup__tooltip-container">
             <button
                 className="popup__close-button"
                 type="button"
                 onClick={onClose}></button>
-            <img className="popup__tooltip" src={tooltip} alt="Response icon" />
-            <h3 className="popup__heading">{message}</h3>
+            <img className="popup__tooltip-sign" src={tooltip} alt="Response icon" />
+            <h3 className="popup__tooltip-text">{message}</h3>
         </div>
     </div>
 
