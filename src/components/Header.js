@@ -66,10 +66,10 @@ function Header(props) {
             <button
                 className="popup__menu-close-button"
                 type="button"
+                onClose={toggleMenu}
                 onClick={() => {
-                    setShowUnfoldedMenu(true);
-                    setShowMenu(false);
-                    onClose();
+                    setShowUnfoldedMenu(false);
+                    setShowMenu(true);
                 }}
             ></button>
         )}
@@ -82,9 +82,9 @@ function Header(props) {
                     <button className="header__link header__logout" onClick={logOut}>{buttonText}</button>
                 )}
             </div>
-            </div>
-        </header>
-    )
+        </div>
+    </header>
+)
 }
 
 export default Header;
