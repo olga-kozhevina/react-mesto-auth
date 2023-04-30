@@ -8,7 +8,7 @@
   2. HTML5;
   3. БЭМ методолгия;
   4. Nested БЭМ - структура файлов;
-  5. Использование макета для разработки из Figma;
+  5. Использование макета для разработки из [Figma](https://www.figma.com/file/5H3gsn5lIGPwzBPby9jAOo/JavaScript.-Sprint-12?node-id=4453-82&t=BSqKMmZrOhDPbl4q-0) ;
   6. Реализация всего функционала с помощью React;
   7. Git - работа с ветками;
   8. Работа с DOM;
