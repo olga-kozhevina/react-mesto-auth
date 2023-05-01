@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PopupWithForm from './PopupWithForm';
+import { validateURL } from '../utils/Validation';
 
 function EditAvatarPopup(props) {
 
@@ -7,18 +8,9 @@ function EditAvatarPopup(props) {
   const avatarRef = useRef(null);
 
   const [link, setLink] = useState('');
+  
   // переменные для вывод ошибок валидации
   const [linkError, setLinkError] = useState('');
-
-  const validateURL = (value) => {
-    const urlRegExp = /^(ftp|http|https):\/\/[^ "]+$/i;
-    if (!value) {
-      return 'Поле не может быть пустым';
-    } else if (!urlRegExp.test(value)) {
-      return 'Пожалуйста, введите действительный URL-адрес, начинающийся с http:// или https://';
-    }
-    return '';
-  };
 
 function handleLink(evt) {
   const { value } = evt.target;

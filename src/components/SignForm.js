@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { validateEmail, validatePassword } from '../utils/Validation';
+
 
 function SignForm(props) {
     const { title, buttonText, onSubmit, isRegister } = props;
@@ -10,33 +12,6 @@ function SignForm(props) {
     // переменные для вывод ошибок валидации
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
-
-    // функции валидации для email и password
-    const validateEmail = (value) => {
-        if (!value) {
-          return 'Email не может быть пустым';
-        }
-      
-        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!pattern.test(value)) {
-          return 'Введите корректный email';
-        }
-      
-        return '';
-      };
-
-      const validatePassword = (value) => {
-        if (!value) {
-            return 'Поле не может быть пустым';
-        }
-        if (value.length < 8) {
-            return 'Пароль должен содержать не менее 8 символов';
-        }
-        if (!/^[A-Za-z0-9_-]+$/.test(value)) {
-            return 'Пароль может состоять только из букв A-Z, a-z, цифр 0-9 и символов -_';
-        }
-        return '';
-    };
 
     function handleEmail(evt) {
         const { value } = evt.target;

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { validateInput } from '../utils/Validation';
 
 function EditProfilePopup(props) {
 
@@ -14,17 +15,6 @@ function EditProfilePopup(props) {
   // переменные для вывод ошибок валидации
   const [nameError, setNameError] = useState('');
   const [aboutError, setAboutError] = useState('');
-
-  // функции валидации для имени и ссылки
-  const validateInput = (value) => {
-    if (!value.trim()) {
-      return 'Поле не может быть пустым';
-    } else if (value.length < 2) {
-      return 'Поле должно содержать не менее 2 символов';
-    } else {
-      return '';
-    }
-  };
 
   function handleName(evt) {
     const { value } = evt.target;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PopupWithForm from './PopupWithForm';
+import { validateURL, validateInput } from '../utils/Validation';
 
 function AddPlacePopup(props) {
     const { isOpen, onClose, onAddPlace, download, renderDownload } = props;
@@ -10,32 +11,11 @@ function AddPlacePopup(props) {
     // переменные для вывод ошибок валидации
     const [nameError, setNameError] = useState('');
     const [linkError, setLinkError] = useState('');
-
-    // функции валидации для имени и ссылки
-    const validateName = (value) => {
-        if (!value.trim()) {
-            return 'Поле не может быть пустым';
-          } else if (value.length < 2) {
-            return 'Поле должно содержать от 2 до 30 символов';
-          } else {
-            return '';
-          }
-        };
-      
-    const validateURL = (value) => {
-        const urlRegExp = /^(ftp|http|https):\/\/[^ "]+$/i;
-        if (!value) {
-          return 'Поле не может быть пустым';
-        } else if (!urlRegExp.test(value)) {
-          return 'Пожалуйста, введите действительный URL-адрес, начинающийся с http:// или https://';
-        }
-        return '';
-      };
     
     function handleName(evt) {
         const { value } = evt.target;
         setName(value);
-        setNameError(validateName(value));
+        setNameError(validateInput(value));
     }
 
     function handleLink(evt) {
