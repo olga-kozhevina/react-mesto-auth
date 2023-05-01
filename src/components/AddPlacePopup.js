@@ -7,25 +7,56 @@ function AddPlacePopup(props) {
     const [name, setName] = useState('');
     const [link, setLink] = useState('');
 
+    // переменные для вывод ошибок валидации
+    const [nameError, setNameError] = useState('');
+    const [linkError, setLinkError] = useState('');
+
+    // функции валидации для имени и ссылки
+    const validateName = (value) => {
+        if (!value.trim()) {
+            return 'Поле не может быть пустым';
+          } else if (value.length < 2) {
+            return 'Поле должно содержать от 2 до 30 символов';
+          } else {
+            return '';
+          }
+        };
+      
+    const validateURL = (value) => {
+        const urlRegExp = /^(ftp|http|https):\/\/[^ "]+$/i;
+        if (!value) {
+          return 'Поле не может быть пустым';
+        } else if (!urlRegExp.test(value)) {
+          return 'Пожалуйста, введите действительный URL-адрес, начинающийся с http:// или https://';
+        }
+        return '';
+      };
+    
     function handleName(evt) {
-        setName(evt.target.value);
+        const { value } = evt.target;
+        setName(value);
+        setNameError(validateName(value));
     }
 
     function handleLink(evt) {
-        setLink(evt.target.value);
+        const { value } = evt.target;
+        setLink(value);
+        setLinkError(validateURL(value));
     }
 
     function handleSubmit(evt) {
         evt.preventDefault();
         renderDownload();
         onAddPlace({
-            name, link
+            name, link,
         });
     }
 
     useEffect(() => {
         setName('');
         setLink('');
+        setNameError('');
+        setLinkError('');
     }, [isOpen]);
 
     return (
@@ -39,7 +70,7 @@ function AddPlacePopup(props) {
             download={download}
             downloadText="Сохранение..."
             children={
-                <div className="popup__form">
+                <div className="popup__form" >
                     <input
                         type="text"
                         className="popup__input popup__input_type_card-name"
@@ -50,8 +81,9 @@ function AddPlacePopup(props) {
                         maxLength="30"
                         placeholder="Название"
                         value={name}
-                        onChange={handleName} />
-                    <span className="popup__error card-name-error"></span>
+                        onChange={handleName}
+                         />
+                    <span className={`popup__error card-name-error ${nameError && 'popup__error_active'}`}>{nameError}</span>
                     <input
                         type="url"
                         className="popup__input popup__input_type_image-src"
@@ -60,8 +92,9 @@ function AddPlacePopup(props) {
                         required
                         placeholder="Ссылка на картинку"
                         value={link}
-                        onChange={handleLink} />
-                    <span className="popup__error url-error"></span>
+                        onChange={handleLink} 
+                         />
+                    <span className={`popup__error url-error ${linkError && 'popup__error_active'}`}>{linkError}</span>
                 </div>
             }
         />

@@ -4,7 +4,7 @@ import menu from '../images/header-menu-sign.svg';
 import { Link, useLocation } from 'react-router-dom';
 
 function Header(props) {
-    const { loggedIn, email, logOut, onClose } = props;
+    const { loggedIn, email, logOut } = props;
 
     // переменные состояния для ширины экрана
     const [width, setWidth] = useState(window.innerWidth);

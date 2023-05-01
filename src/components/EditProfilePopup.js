@@ -11,18 +11,39 @@ function EditProfilePopup(props) {
   const [name, setName] = useState(currentUser.name);
   const [about, setAbout] = useState(currentUser.about);
 
+  // переменные для вывод ошибок валидации
+  const [nameError, setNameError] = useState('');
+  const [aboutError, setAboutError] = useState('');
+
+  // функции валидации для имени и ссылки
+  const validateInput = (value) => {
+    if (!value.trim()) {
+      return 'Поле не может быть пустым';
+    } else if (value.length < 2) {
+      return 'Поле должно содержать не менее 2 символов';
+    } else {
+      return '';
+    }
+  };
+
   function handleName(evt) {
-    setName(evt.target.value);
+    const { value } = evt.target;
+    setName(value);
+    setNameError(validateInput(value));
   }
 
   function handleAbout(evt) {
-    setAbout(evt.target.value);
+    const { value } = evt.target;
+    setAbout(value);
+    setAboutError(validateInput(value));
   }
 
   useEffect(() => {
     setName(currentUser.name);
     setAbout(currentUser.about);
-  }, [currentUser, isOpen])
+    setNameError('');
+    setAboutError('');
+}, [currentUser, isOpen])
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -56,7 +77,7 @@ function EditProfilePopup(props) {
             placeholder="Имя"
             value={name}
             onChange={handleName} />
-          <span className="popup__error profile-name-error"></span>
+          <span className={`popup__error name-error ${nameError && 'popup__error_active'}`}>{nameError}</span>
           <input
             type="text"
             className="popup__input popup__input_type_about"
@@ -68,7 +89,7 @@ function EditProfilePopup(props) {
             placeholder="О себе"
             value={about}
             onChange={handleAbout} />
-          <span className="popup__error profile-about-error"></span>
+          <span className={`popup__error about-error ${aboutError && 'popup__error_active'}`}>{aboutError}</span>
         </div>
       }
     />

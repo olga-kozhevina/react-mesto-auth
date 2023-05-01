@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 function EditAvatarPopup(props) {
@@ -6,6 +6,25 @@ function EditAvatarPopup(props) {
   const { isOpen, onClose, onUpdateAvatar, download, renderDownload } = props;
   const avatarRef = useRef(null);
 
+  const [link, setLink] = useState('');
+  // переменные для вывод ошибок валидации
+  const [linkError, setLinkError] = useState('');
+
+  const validateURL = (value) => {
+    const urlRegExp = /^(ftp|http|https):\/\/[^ "]+$/i;
+    if (!value) {
+      return 'Поле не может быть пустым';
+    } else if (!urlRegExp.test(value)) {
+      return 'Пожалуйста, введите действительный URL-адрес, начинающийся с http:// или https://';
+    }
+    return '';
+  };
+
+function handleLink(evt) {
+  const { value } = evt.target;
+  setLink(value);
+  setLinkError(validateURL(value));
+}
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -16,7 +35,9 @@ function EditAvatarPopup(props) {
   useEffect(() => {
     if (isOpen) {
       avatarRef.current.value = '';
-    }
+    };
+    setLink('');
+    setLinkError('');
   }, [isOpen]);
 
   return (
@@ -37,9 +58,11 @@ function EditAvatarPopup(props) {
             id="urlav"
             name="url"
             placeholder="Ссылка на картинку"
-            required
+            value={link}
+            onChange={handleLink} 
+            required=""
             ref={avatarRef} />
-          <span className="popup__error urlav-error"></span>
+          <span className={`popup__error urlav-error ${linkError && 'popup__error_active'}`}>{linkError}</span>
         </div>
       }
     />
