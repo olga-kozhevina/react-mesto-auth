@@ -50,12 +50,9 @@ function App() {
 
   const navigate = useNavigate();
 
-
   // переменные для вывод ошибок валидации
   const [inputError, setInputError] = useState('');
   const [sameInputError, setSameInputError] = useState('');
-
-
 
   // получаем данные пользователя и карточки с сервера
   useEffect(() => {
@@ -68,10 +65,45 @@ function App() {
         .catch((err) => {
           console.log(`Ошибка при получении данных: ${err}`);
           setErrorMessage('Произошла ошибка при получении данных');
-          showTooltipResponse(false);
         })
     }
   }, [loggedIn]);
+
+
+  // закрываем попап по клику на фон или escape
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        closeAllPopups();
+      }
+    };
+
+    const handleOverlayClick = (event) => {
+      const popups = [
+        document.querySelector('.popup_type_edit-profile'),
+        document.querySelector('.popup_type_add-card'),
+        document.querySelector('.popup_type_avatar'),
+        document.querySelector('.popup_type_card-modal'),
+        document.querySelector('.popup_type_confirm'),
+        document.querySelector('.popup_type_tooltip')
+      ];
+
+      popups.forEach((popup) => {
+        if (popup && popup.classList.contains('popup_opened') && 
+            (event.target === popup)) {
+          closeAllPopups();
+        }
+      });
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    document.addEventListener('click', handleOverlayClick);
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('click', handleOverlayClick);
+    };
+  }, []);
 
   // закрываем все попапы
   function closeAllPopups() {
