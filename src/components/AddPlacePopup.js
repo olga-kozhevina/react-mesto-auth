@@ -3,25 +3,21 @@ import PopupWithForm from './PopupWithForm';
 import { validateURL, validateInput } from '../utils/Validation';
 
 function AddPlacePopup(props) {
-    const { isOpen, onClose, onAddPlace, download, renderDownload } = props;
+    const { isOpen, onClose, onAddPlace, download, renderDownload, inputError, setInputError, sameInputError, setSameInputError } = props;
 
     const [name, setName] = useState('');
     const [link, setLink] = useState('');
-
-    // переменные для вывод ошибок валидации
-    const [nameError, setNameError] = useState('');
-    const [linkError, setLinkError] = useState('');
     
     function handleName(evt) {
         const { value } = evt.target;
         setName(value);
-        setNameError(validateInput(value));
+        setInputError(validateInput(value));
     }
 
     function handleLink(evt) {
         const { value } = evt.target;
         setLink(value);
-        setLinkError(validateURL(value));
+        setSameInputError(validateURL(value));
     }
 
     function handleSubmit(evt) {
@@ -35,8 +31,8 @@ function AddPlacePopup(props) {
     useEffect(() => {
         setName('');
         setLink('');
-        setNameError('');
-        setLinkError('');
+        setInputError('');
+        setSameInputError('');
     }, [isOpen]);
 
     return (
@@ -49,6 +45,7 @@ function AddPlacePopup(props) {
             buttonText="Создать"
             download={download}
             downloadText="Сохранение..."
+            disabled={!!inputError || !!sameInputError || !link || !name }
             children={
                 <div className="popup__form" >
                     <input
@@ -63,7 +60,7 @@ function AddPlacePopup(props) {
                         value={name}
                         onChange={handleName}
                          />
-                    <span className={`popup__error card-name-error ${nameError && 'popup__error_active'}`}>{nameError}</span>
+                    <span className={`popup__error card-name-error ${inputError && 'popup__error_active'}`}>{inputError}</span>
                     <input
                         type="url"
                         className="popup__input popup__input_type_image-src"
@@ -74,7 +71,7 @@ function AddPlacePopup(props) {
                         value={link}
                         onChange={handleLink} 
                          />
-                    <span className={`popup__error url-error ${linkError && 'popup__error_active'}`}>{linkError}</span>
+                    <span className={`popup__error url-error ${sameInputError && 'popup__error_active'}`}>{sameInputError}</span>
                 </div>
             }
         />

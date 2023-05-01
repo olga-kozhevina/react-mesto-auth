@@ -5,34 +5,30 @@ import { validateInput } from '../utils/Validation';
 
 function EditProfilePopup(props) {
 
-  const { isOpen, onClose, download, renderDownload } = props;
+  const { isOpen, onClose, download, renderDownload, inputError, setInputError, sameInputError, setSameInputError } = props;
 
   const currentUser = useContext(CurrentUserContext);
 
   const [name, setName] = useState(currentUser.name);
   const [about, setAbout] = useState(currentUser.about);
 
-  // переменные для вывод ошибок валидации
-  const [nameError, setNameError] = useState('');
-  const [aboutError, setAboutError] = useState('');
-
   function handleName(evt) {
     const { value } = evt.target;
     setName(value);
-    setNameError(validateInput(value));
+    setInputError(validateInput(value));
   }
 
   function handleAbout(evt) {
     const { value } = evt.target;
     setAbout(value);
-    setAboutError(validateInput(value));
+    setSameInputError(validateInput(value));
   }
 
   useEffect(() => {
     setName(currentUser.name);
     setAbout(currentUser.about);
-    setNameError('');
-    setAboutError('');
+    setInputError('');
+    setSameInputError('');
 }, [currentUser, isOpen])
 
   function handleSubmit(evt) {
@@ -54,6 +50,7 @@ function EditProfilePopup(props) {
       buttonText="Сохранить"
       download={download}
       downloadText="Сохранение..."
+      disabled={!!inputError || !!sameInputError || !name || !about}
       children={
         <div className="popup__form">
           <input
@@ -67,7 +64,7 @@ function EditProfilePopup(props) {
             placeholder="Имя"
             value={name}
             onChange={handleName} />
-          <span className={`popup__error name-error ${nameError && 'popup__error_active'}`}>{nameError}</span>
+          <span className={`popup__error name-error ${inputError && 'popup__error_active'}`}>{inputError}</span>
           <input
             type="text"
             className="popup__input popup__input_type_about"
@@ -79,7 +76,7 @@ function EditProfilePopup(props) {
             placeholder="О себе"
             value={about}
             onChange={handleAbout} />
-          <span className={`popup__error about-error ${aboutError && 'popup__error_active'}`}>{aboutError}</span>
+          <span className={`popup__error about-error ${sameInputError && 'popup__error_active'}`}>{sameInputError}</span>
         </div>
       }
     />

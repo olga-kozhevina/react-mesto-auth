@@ -4,18 +4,15 @@ import { validateURL } from '../utils/Validation';
 
 function EditAvatarPopup(props) {
 
-  const { isOpen, onClose, onUpdateAvatar, download, renderDownload } = props;
+  const { isOpen, onClose, onUpdateAvatar, download, renderDownload, inputError, setInputError } = props;
   const avatarRef = useRef(null);
 
   const [link, setLink] = useState('');
-  
-  // переменные для вывод ошибок валидации
-  const [linkError, setLinkError] = useState('');
 
 function handleLink(evt) {
   const { value } = evt.target;
   setLink(value);
-  setLinkError(validateURL(value));
+  setInputError(validateURL(value));
 }
 
   function handleSubmit(evt) {
@@ -29,7 +26,7 @@ function handleLink(evt) {
       avatarRef.current.value = '';
     };
     setLink('');
-    setLinkError('');
+    setInputError('');
   }, [isOpen]);
 
   return (
@@ -42,6 +39,7 @@ function handleLink(evt) {
       buttonText="Сохранить"
       download={download}
       downloadText="Обновление..."
+      disabled={!!inputError || !link}
       children={
         <div className="popup__form">
           <input
@@ -54,7 +52,7 @@ function handleLink(evt) {
             onChange={handleLink} 
             required=""
             ref={avatarRef} />
-          <span className={`popup__error urlav-error ${linkError && 'popup__error_active'}`}>{linkError}</span>
+          <span className={`popup__error urlav-error ${inputError && 'popup__error_active'}`}>{inputError}</span>
         </div>
       }
     />
@@ -62,3 +60,4 @@ function handleLink(evt) {
 }
 
 export default EditAvatarPopup;
+

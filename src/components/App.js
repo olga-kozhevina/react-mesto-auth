@@ -50,19 +50,26 @@ function App() {
 
   const navigate = useNavigate();
 
+
+  // переменные для вывод ошибок валидации
+  const [inputError, setInputError] = useState('');
+  const [sameInputError, setSameInputError] = useState('');
+
+
+
   // получаем данные пользователя и карточки с сервера
   useEffect(() => {
     if (loggedIn) {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([user, cards]) => {
-        setCurrentUser({ ...currentUser, ...user });
-        setCards(cards);
-      })
-      .catch((err) => {
-        console.log(`Ошибка при получении данных: ${err}`);
-        setErrorMessage('Произошла ошибка при получении данных');
-        showTooltipResponse(false);
-      })
+      Promise.all([api.getUserInfo(), api.getInitialCards()])
+        .then(([user, cards]) => {
+          setCurrentUser({ ...currentUser, ...user });
+          setCards(cards);
+        })
+        .catch((err) => {
+          console.log(`Ошибка при получении данных: ${err}`);
+          setErrorMessage('Произошла ошибка при получении данных');
+          showTooltipResponse(false);
+        })
     }
   }, [loggedIn]);
 
@@ -119,7 +126,6 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка лайка: ${err}`);
-        showTooltipResponse(false);
       })
   }
 
@@ -132,17 +138,16 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка удаления карточки: ${err}`);
-        showTooltipResponse(false);
       })
       .finally(() => renderDownload());
   }
-  
-    // функция подтверждения удаления карточки
-    function handleCardConfirmDelete(card) {
-      setSelectedCard(card);
-      setConfirmPopup(true);
-    }
-  
+
+  // функция подтверждения удаления карточки
+  function handleCardConfirmDelete(card) {
+    setSelectedCard(card);
+    setConfirmPopup(true);
+  }
+
   // обновление инфо о пользователе
   function handleUpdateUser(userData) {
     api.editUserInfo(userData)
@@ -152,7 +157,6 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка обновления данных пользователя: ${err}`);
-        showTooltipResponse(false);
       })
       .finally(() => renderDownload())
   };
@@ -166,7 +170,6 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка обновления аватара: ${err}`);
-        showTooltipResponse(false);
       })
       .finally(() => renderDownload())
   };
@@ -180,7 +183,6 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка добавления карточки: ${err}`);
-        showTooltipResponse(false);
       })
       .finally(() => renderDownload())
   };
@@ -199,7 +201,7 @@ function App() {
         if (response && response.data) {
           showTooltipResponse(true);
           navigate('/sign-in');
-        } 
+        }
       })
       .catch((err) => {
         console.log(`Ошибка попапа регистрации: ${err}`);
@@ -215,7 +217,7 @@ function App() {
           setCurrentUser({ ...currentUser, email: loginData.email });
           localStorage.setItem('jwt', response.token);
           checkToken();
-        } 
+        }
       })
       .catch((err) => {
         console.log(`Ошибка попапа регистрации: ${err}`);
@@ -280,6 +282,10 @@ function App() {
           onUpdateUser={handleUpdateUser}
           download={download}
           renderDownload={renderDownload}
+          inputError={inputError}
+          setInputError={setInputError}
+          sameInputError={sameInputError}
+          setSameInputError={setSameInputError}
         />
 
         <AddPlacePopup
@@ -288,6 +294,10 @@ function App() {
           onAddPlace={handleAddPlaceSubmit}
           download={download}
           renderDownload={renderDownload}
+          inputError={inputError}
+          setInputError={setInputError}
+          sameInputError={sameInputError}
+          setSameInputError={setSameInputError}
         />
 
         <EditAvatarPopup
@@ -295,8 +305,10 @@ function App() {
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
           download={download}
-          renderDownload={renderDownload} 
-          />
+          renderDownload={renderDownload}
+          inputError={inputError}
+          setInputError={setInputError}
+        />
 
         <ImagePopup
           card={selectedCard}
@@ -304,19 +316,19 @@ function App() {
           onClose={closeAllPopups}
         />
 
-        <PopupWithConfirm 
-        isOpen={confirmPopup} 
-        onClose={closeAllPopups}
-        onCardDelete={handleCardDelete}
-        download={download}
-        renderDownload={renderDownload} 
-      />
+        <PopupWithConfirm
+          isOpen={confirmPopup}
+          onClose={closeAllPopups}
+          onCardDelete={handleCardDelete}
+          download={download}
+          renderDownload={renderDownload}
+        />
 
-       <InfoToolTip 
-       name="tooltip" 
-       isOpen={infoToolTipPopup} 
-       onClose={closeAllPopups} 
-       signedIn={signedIn} />
+        <InfoToolTip
+          name="tooltip"
+          isOpen={infoToolTipPopup}
+          onClose={closeAllPopups}
+          signedIn={signedIn} />
 
         <Footer loggedIn={loggedIn} />
         <Error />

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { validateEmail, validatePassword } from '../utils/Validation';
 
-
 function SignForm(props) {
     const { title, buttonText, onSubmit, isRegister } = props;
 
@@ -12,6 +11,7 @@ function SignForm(props) {
     // переменные для вывод ошибок валидации
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    
 
     function handleEmail(evt) {
         const { value } = evt.target;
