@@ -34,7 +34,7 @@ function App() {
   const [download, setDownload] = useState(false);
 
   // переменные состояния открытия попапа карточки
-  const [selectedCard, setSelectedCard] = useState(null);
+  const [selectedCard, setSelectedCard] = useState({});
 
   // переменные состояния пользователя
   const [currentUser, setCurrentUser] = useState(initialUser);
@@ -68,18 +68,18 @@ function App() {
   }, [loggedIn]);
 
   // закрываем все попапы
-  const closeAllPopups = () => {
-    setSelectedCard(null);
+  function closeAllPopups() {
+    setSelectedCard({});
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setInfoToolTipPopup(false);
     setIsImagePopupOpen(false);
-    //setConfirmPopup(false);
+    setConfirmPopup(false);
   }
 
   // устанавливаем tooltip response на попап
-  const showTooltipResponse = (signedIn) => {
+  function showTooltipResponse(signedIn) {
     setInfoToolTipPopup(true);
     setSignedIn(signedIn);
   };
@@ -107,12 +107,6 @@ function App() {
     setDownload((download) => !download);
   }
 
-  // функция подтверждения удаления карточки
-  function handleCardConfirmDelete(card) {
-    setSelectedCard(card);
-   // setConfirmPopup(true);
-  }
-
   // функция лайка карточки
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -131,17 +125,25 @@ function App() {
   }
 
   // функция удаления карточки
-  function handleCardDelete(card) {
-    api.deleteCard(card._id)
+  function handleCardDelete() {
+    api.deleteCard(selectedCard._id)
       .then(() => {
-        setCards((prevCards) => prevCards.filter((c) => c._id !== card._id))
+        setCards((prevCards) => prevCards.filter((c) => c._id !== selectedCard._id));
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(`Ошибка удаления карточки: ${err}`);
         showTooltipResponse(false);
       })
-  };
-
+      .finally(() => renderDownload());
+  }
+  
+    // функция подтверждения удаления карточки
+    function handleCardConfirmDelete(card) {
+      setSelectedCard(card);
+      setConfirmPopup(true);
+    }
+  
   // обновление инфо о пользователе
   function handleUpdateUser(userData) {
     api.editUserInfo(userData)
@@ -289,13 +291,6 @@ function App() {
           renderDownload={renderDownload}
         />
 
-        <PopupWithForm
-          title="Вы уверены?"
-          name="confirm"
-          buttonText="Да"
-          onCardDelete={handleCardDelete}
-           />
-
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
@@ -305,10 +300,18 @@ function App() {
           />
 
         <ImagePopup
-          onClose={closeAllPopups}
           card={selectedCard}
           isOpen={isImagePopupOpen}
+          onClose={closeAllPopups}
         />
+
+        <PopupWithConfirm 
+        isOpen={confirmPopup} 
+        onClose={closeAllPopups}
+        onCardDelete={handleCardDelete}
+        download={download}
+        renderDownload={renderDownload} 
+      />
 
        <InfoToolTip 
        name="tooltip" 

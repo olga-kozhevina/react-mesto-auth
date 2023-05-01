@@ -8,18 +8,19 @@ function PopupWithConfirm(props) {
         evt.preventDefault();
         renderDownload();
         onCardDelete();
-    }
-
+      }
+      
     return (
         <PopupWithForm 
         name="confirm" 
         title="Вы уверены?"
         buttonText="Да" 
-        download={download}
-        downloadText="Удаление..." 
         isOpen={isOpen} 
         onClose={onClose} 
-        onSubmit={handleSubmit} />
+        onSubmit={handleSubmit} 
+        download={download}
+        downloadText="Удаление..." 
+        />
     );
 }
 

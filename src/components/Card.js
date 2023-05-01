@@ -29,7 +29,8 @@ function Card(props) {
         onCardLike(card);
     };
 
-    const handleDeleteClick = () => {
+    const handleDeleteClick = (evt) => {
+        evt.preventDefault();
         onCardDelete(card);
     };
 
