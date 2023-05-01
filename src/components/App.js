@@ -63,47 +63,11 @@ function App() {
           setCards(cards);
         })
         .catch((err) => {
-          console.log(`Ошибка при получении данных: ${err}`);
+          console.error(`Ошибка при получении данных: ${err}`);
           setErrorMessage('Произошла ошибка при получении данных');
         })
     }
   }, [loggedIn]);
-
-
-  // закрываем попап по клику на фон или escape
-  useEffect(() => {
-    const handleEscape = (event) => {
-      if (event.key === 'Escape') {
-        closeAllPopups();
-      }
-    };
-
-    const handleOverlayClick = (event) => {
-      const popups = [
-        document.querySelector('.popup_type_edit-profile'),
-        document.querySelector('.popup_type_add-card'),
-        document.querySelector('.popup_type_avatar'),
-        document.querySelector('.popup_type_card-modal'),
-        document.querySelector('.popup_type_confirm'),
-        document.querySelector('.popup_type_tooltip')
-      ];
-
-      popups.forEach((popup) => {
-        if (popup && popup.classList.contains('popup_opened') && 
-            (event.target === popup)) {
-          closeAllPopups();
-        }
-      });
-    };
-
-    document.addEventListener('keydown', handleEscape);
-    document.addEventListener('click', handleOverlayClick);
-
-    return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.removeEventListener('click', handleOverlayClick);
-    };
-  }, []);
 
   // закрываем все попапы
   function closeAllPopups() {
@@ -115,6 +79,22 @@ function App() {
     setIsImagePopupOpen(false);
     setConfirmPopup(false);
   }
+  
+  // функция закрытия по клику на overlay или escape
+  function handleCloseClick(event) {
+    if (event.key === 'Escape' || event.target.classList.contains('popup_opened')) {
+      closeAllPopups();
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleCloseClick);
+    document.addEventListener('click', handleCloseClick);
+    return () => {
+      document.removeEventListener('keydown', handleCloseClick);
+      document.removeEventListener('click', handleCloseClick);
+    };
+  }, []);
 
   // устанавливаем tooltip response на попап
   function showTooltipResponse(signedIn) {
@@ -157,7 +137,7 @@ function App() {
         );
       })
       .catch((err) => {
-        console.log(`Ошибка лайка: ${err}`);
+        console.error(`Ошибка лайка: ${err}`);
       })
   }
 
@@ -169,7 +149,7 @@ function App() {
         closeAllPopups();
       })
       .catch((err) => {
-        console.log(`Ошибка удаления карточки: ${err}`);
+        console.error(`Ошибка удаления карточки: ${err}`);
       })
       .finally(() => renderDownload());
   }
@@ -188,7 +168,7 @@ function App() {
         closeAllPopups();
       })
       .catch((err) => {
-        console.log(`Ошибка обновления данных пользователя: ${err}`);
+        console.error(`Ошибка обновления данных пользователя: ${err}`);
       })
       .finally(() => renderDownload())
   };
@@ -201,7 +181,7 @@ function App() {
         closeAllPopups();
       })
       .catch((err) => {
-        console.log(`Ошибка обновления аватара: ${err}`);
+        console.error(`Ошибка обновления аватара: ${err}`);
       })
       .finally(() => renderDownload())
   };
@@ -214,7 +194,7 @@ function App() {
         closeAllPopups();
       })
       .catch((err) => {
-        console.log(`Ошибка добавления карточки: ${err}`);
+        console.error(`Ошибка добавления карточки: ${err}`);
       })
       .finally(() => renderDownload())
   };
@@ -236,7 +216,7 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(`Ошибка попапа регистрации: ${err}`);
+        console.error(`Ошибка попапа регистрации: ${err}`);
         showTooltipResponse(false);
       })
   };
@@ -252,7 +232,7 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(`Ошибка попапа регистрации: ${err}`);
+        console.error(`Ошибка попапа регистрации: ${err}`);
         showTooltipResponse(false);
       })
   };
@@ -271,7 +251,7 @@ function App() {
           }
         })
         .catch((err) => {
-          console.log(`Ошибка получения токена: ${err}`);
+          console.error(`Ошибка получения токена: ${err}`);
           showTooltipResponse(false);
         })
     }
