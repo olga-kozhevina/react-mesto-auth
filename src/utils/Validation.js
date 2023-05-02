@@ -9,16 +9,16 @@ export const validateURL = (value) => {
   return '';
 };
 
-  // функции валидации для текстовых полей
-export  const validateInput = (value) => {
-    if (!value.trim()) {
-      return 'Поле не может быть пустым';
-    } else if (value.length < 2) {
-      return 'Поле должно содержать не менее 2 символов';
-    } else {
-      return '';
-    }
-  };
+// функции валидации для текстовых полей
+export const validateInput = (value) => {
+  if (!value.trim()) {
+    return 'Поле не может быть пустым';
+  } else if (value.length < 2) {
+    return 'Поле должно содержать не менее 2 символов';
+  } else {
+    return '';
+  }
+};
 
 // функции валидации для email и password
 export const validateEmail = (value) => {

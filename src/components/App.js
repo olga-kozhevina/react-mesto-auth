@@ -45,8 +45,9 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [signedIn, setSignedIn] = useState(true);
 
-  // переменные состояния ответа попапа после регистрации 
+  // переменные состояния ответа попапа после регистрации/логина 
   const [infoToolTipPopup, setInfoToolTipPopup] = useState(false);
+  const [tooltipMessage, setTooltipMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -79,7 +80,7 @@ function App() {
     setIsImagePopupOpen(false);
     setConfirmPopup(false);
   }
-  
+
   // функция закрытия по клику на overlay или escape
   function handleCloseClick(event) {
     if (event.key === 'Escape' || event.target.classList.contains('popup_opened')) {
@@ -97,9 +98,10 @@ function App() {
   }, []);
 
   // устанавливаем tooltip response на попап
-  function showTooltipResponse(signedIn) {
+  function showTooltipResponse(signedIn, tooltipMessage) {
     setInfoToolTipPopup(true);
     setSignedIn(signedIn);
+    setTooltipMessage(tooltipMessage);
   };
 
   // функции открытия попапов
@@ -211,17 +213,19 @@ function App() {
     apiAuth.register(regData)
       .then((response) => {
         if (response && response.data) {
-          showTooltipResponse(true);
+          showTooltipResponse(true, "Вы успешно зарегистрировались!");
           navigate('/sign-in');
+          setInfoToolTipPopup(true);
         }
       })
       .catch((err) => {
         console.error(`Ошибка попапа регистрации: ${err}`);
-        showTooltipResponse(false);
+        showTooltipResponse(false, "Что-то пошло не так! Попробуйте ещё раз.");
+        setInfoToolTipPopup(true);
       })
   };
 
-  // функция для регистрации пользователя
+  // функция для логина пользователя
   function handleLogin(loginData) {
     apiAuth.login(loginData)
       .then((response) => {
@@ -233,7 +237,7 @@ function App() {
       })
       .catch((err) => {
         console.error(`Ошибка попапа регистрации: ${err}`);
-        showTooltipResponse(false);
+        showTooltipResponse(false, "Что-то пошло не так! Попробуйте ещё раз.");
       })
   };
 
@@ -252,7 +256,7 @@ function App() {
         })
         .catch((err) => {
           console.error(`Ошибка получения токена: ${err}`);
-          showTooltipResponse(false);
+          showTooltipResponse(false, "Что-то пошло не так! Попробуйте ещё раз.");
         })
     }
   };
@@ -340,7 +344,9 @@ function App() {
           name="tooltip"
           isOpen={infoToolTipPopup}
           onClose={closeAllPopups}
-          signedIn={signedIn} />
+          signedIn={signedIn}
+          tooltipMessage={tooltipMessage}
+        />
 
         <Footer loggedIn={loggedIn} />
         <Error />

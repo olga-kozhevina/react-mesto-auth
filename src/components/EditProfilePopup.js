@@ -29,7 +29,7 @@ function EditProfilePopup(props) {
     setAbout(currentUser.about);
     setInputError('');
     setSameInputError('');
-}, [currentUser, isOpen])
+  }, [currentUser, isOpen])
 
   function handleSubmit(evt) {
     evt.preventDefault();

@@ -3,7 +3,7 @@ export const BASE_URL = 'https://auth.nomoreparties.co';
 function handleResponse(res) {
     if (res.ok) {
         return res.json();
-    } 
+    }
     return Promise.reject(res.status);
 };
 
@@ -16,7 +16,7 @@ export const checkToken = (token) => {
             'Authorization': `Bearer ${token}`
         }
     })
-    .then(handleResponse)
+        .then(handleResponse)
 };
 
 export const register = (data) => {
@@ -27,7 +27,7 @@ export const register = (data) => {
         },
         body: JSON.stringify(data)
     })
-    .then(handleResponse)
+        .then(handleResponse)
 };
 
 export const login = (data) => {
@@ -38,5 +38,5 @@ export const login = (data) => {
         },
         body: JSON.stringify(data)
     })
-    .then(handleResponse)
+        .then(handleResponse)
 };

@@ -11,13 +11,14 @@ function SignForm(props) {
     // переменные для вывод ошибок валидации
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
-    
+
+    const disabled = !email || emailError || !password || passwordError;
 
     function handleEmail(evt) {
         const { value } = evt.target;
         setEmail(value);
         setEmailError(validateEmail(value));
-        }
+    }
 
     function handlePassword(evt) {
         const { value } = evt.target;
@@ -31,11 +32,12 @@ function SignForm(props) {
     }
 
     return (
-        <form 
+        <form
             noValidate
             className="form"
             name="signform"
-            onSubmit={handleSubmit} >
+            onSubmit={handleSubmit}
+        >
             <h3 className="form__title">{title}</h3>
             <fieldset className="form__inputs">
                 <input
@@ -59,12 +61,15 @@ function SignForm(props) {
                     maxLength={50}
                     value={password}
                     onChange={handlePassword} />
-                    <span className={`popup__error password-error ${passwordError && 'popup__error_active'}`}>{passwordError}</span>
-                    </fieldset>
+                <span className={`popup__error password-error ${passwordError && 'popup__error_active'}`}>{passwordError}</span>
+            </fieldset>
 
             <button
-                className="form__submit-button"
-                type="submit">{buttonText}</button>
+                className={`form__submit-button ${disabled ? 'popup__submit-button_disabled' : ''}`}
+                type="submit"
+                disabled={disabled}
+            >{buttonText}
+            </button>
             {isRegister && <span className="form__subtitle">Уже зарегистрированы? <Link to="/sign-in" className="form__link">Войти</Link></span>}
         </form>
     )

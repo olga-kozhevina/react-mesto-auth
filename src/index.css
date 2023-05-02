@@ -6,10 +6,16 @@
 
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
+@import url(./blocks/header/__logo/_disable/header__logo_disable.css);
 @import url(./blocks/header/__links/header__links.css);
 @import url(./blocks/header/__link/header__link.css);
 @import url(./blocks/header/__email/header__email.css);
 @import url(./blocks/header/__logout/header__logout.css);
+@import url(./blocks/header/__unfold-menu/header__unfold-menu.css);
+@import url(./blocks/header/__unfold-email/header__unfold-email.css);
+@import url(./blocks/header/__unfold-logout/header__unfold-logout.css);
+@import url(./blocks/header/__main/header__main.css);
+@import url(./blocks/header/__menu-sign/header__menu-sign.css);
 
 @import url(./blocks/content/content.css);
 
@@ -62,100 +68,57 @@
 @import url(./blocks/popup/_opened/popup_opened.css);
 @import url(./blocks/popup/__error/popup__error.css);
 @import url(./blocks/popup/__error/_active/popup__error_active.css);
+@import url(./blocks/popup/__tooltip-container/popup__tooltip-container.css);
+@import url(./blocks/popup/__tooltip-sign/popup__tooltip-sign.css);
+@import url(./blocks/popup/__tooltip-text/popup__tooltip-text.css);
+@import url(./blocks/popup/__menu-close-button/popup__menu-close-button.css);
 
 body {
     background: #000;
 }
 
-.popup__tooltip-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 50px 0;
-    text-align: center;
+.header__mobile-email {
+    display: none;
 }
 
 @media screen and (min-width: 600px) {
-    .popup__tooltip-container {
-        padding: 60px 0;
+    .header__mobile-email {
+        display: block;
+        margin: 0;
+        padding: 4px 0 0;
+        font-weight: 500;
+        line-height: 22px;
+        font-size: 18px;
     }
 }
 
-
-.popup__tooltip-sign {
-    display: block;
-    height: 120px;
-    width: 120px;
-    margin: 0 0 40px;
+.header__mobile-logout {
+    display: none;
 }
 
 @media screen and (min-width: 600px) {
-    .popup__tooltip-sign {
-        margin-bottom: 32px;
+    .header__mobile-logout {
+        display: block;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        text-decoration: none;
+        margin: 0;
+        padding: 4px 30px 29px;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 22px;
+        color: #a9a9a9;
+        transition: opacity 0.3s ease-in-out;
+        }
+    }
+
+.header__mobile-logout:hover {
+    opacity: .5;
+}
+
+@media screen and (min-width: 900px) {
+    .header__mobile-logout {
+        padding-right: 0;
     }
 }
-
-.popup__tooltip-text {
-    font-weight: 900;
-    font-size: 20px;
-    line-height: 24px;
-    margin: 0;
-    max-width: 244px;
-}
-
-@media screen and (min-width: 600px) {
-    .popup__tooltip-text {
-        font-size: 24px;
-        line-height: 29px;
-        padding: 0 36px;
-        max-width: 358px;
-    }
-}
-
-.header__unfold-menu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-bottom: 1px solid rgba(84, 84, 84, .7);
-    padding: 28px 0 0;
-}
-
-.header__unfold-email {
-    font-size: 18px;
-    margin: 0;
-    padding: 14px 0 0;
-}
-
-.header__unfold-logout {
-    padding: 18px 0 38px;    
-}
-
-.header__logo_disable {
-    visibility: hidden;
-}
-
-.popup__menu-close-button {
-    background: url(./images/close-button.svg) center no-repeat;
-    border: none;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    transition: opacity .3s ease-in-out;
-    padding: 30px 13px 0;
-  }
-  
-  .popup__menu-close-button:hover {
-    opacity: .6;
-  }
-  
-  .header__main {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .header__menu-sign {
-    display: block;
-    width: 24px;
-    padding: 4px 3px 30px;
-  }

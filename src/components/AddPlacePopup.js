@@ -7,7 +7,7 @@ function AddPlacePopup(props) {
 
     const [name, setName] = useState('');
     const [link, setLink] = useState('');
-    
+
     function handleName(evt) {
         const { value } = evt.target;
         setName(value);
@@ -45,7 +45,7 @@ function AddPlacePopup(props) {
             buttonText="Создать"
             download={download}
             downloadText="Сохранение..."
-            disabled={!!inputError || !!sameInputError || !link || !name }
+            disabled={!!inputError || !!sameInputError || !link || !name}
             children={
                 <div className="popup__form" >
                     <input
@@ -59,7 +59,7 @@ function AddPlacePopup(props) {
                         placeholder="Название"
                         value={name}
                         onChange={handleName}
-                         />
+                    />
                     <span className={`popup__error card-name-error ${inputError && 'popup__error_active'}`}>{inputError}</span>
                     <input
                         type="url"
@@ -69,8 +69,8 @@ function AddPlacePopup(props) {
                         required
                         placeholder="Ссылка на картинку"
                         value={link}
-                        onChange={handleLink} 
-                         />
+                        onChange={handleLink}
+                    />
                     <span className={`popup__error url-error ${sameInputError && 'popup__error_active'}`}>{sameInputError}</span>
                 </div>
             }

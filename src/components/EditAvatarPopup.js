@@ -9,11 +9,11 @@ function EditAvatarPopup(props) {
 
   const [link, setLink] = useState('');
 
-function handleLink(evt) {
-  const { value } = evt.target;
-  setLink(value);
-  setInputError(validateURL(value));
-}
+  function handleLink(evt) {
+    const { value } = evt.target;
+    setLink(value);
+    setInputError(validateURL(value));
+  }
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -49,7 +49,7 @@ function handleLink(evt) {
             name="url"
             placeholder="Ссылка на картинку"
             value={link}
-            onChange={handleLink} 
+            onChange={handleLink}
             required=""
             ref={avatarRef} />
           <span className={`popup__error urlav-error ${inputError && 'popup__error_active'}`}>{inputError}</span>
