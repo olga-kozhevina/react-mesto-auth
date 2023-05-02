@@ -266,7 +266,6 @@ function App() {
   }, []);
 
   return (
-
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
 

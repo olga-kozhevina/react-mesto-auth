@@ -11,7 +11,6 @@ function SignForm(props) {
     // переменные для вывод ошибок валидации
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
-
     const disabled = !email || emailError || !password || passwordError;
 
     function handleEmail(evt) {

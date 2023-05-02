@@ -6,9 +6,7 @@ import { validateInput } from '../utils/Validation';
 function EditProfilePopup(props) {
 
   const { isOpen, onClose, download, renderDownload, inputError, setInputError, sameInputError, setSameInputError } = props;
-
   const currentUser = useContext(CurrentUserContext);
-
   const [name, setName] = useState(currentUser.name);
   const [about, setAbout] = useState(currentUser.about);
 

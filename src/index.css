@@ -16,6 +16,8 @@
 @import url(./blocks/header/__unfold-logout/header__unfold-logout.css);
 @import url(./blocks/header/__main/header__main.css);
 @import url(./blocks/header/__menu-sign/header__menu-sign.css);
+@import url(./blocks/header/__mobile-email/header__mobile-email.css);
+@import url(./blocks/header/__mobile-logout/header__mobile-logout.css);
 
 @import url(./blocks/content/content.css);
 
@@ -75,50 +77,4 @@
 
 body {
     background: #000;
-}
-
-.header__mobile-email {
-    display: none;
-}
-
-@media screen and (min-width: 600px) {
-    .header__mobile-email {
-        display: block;
-        margin: 0;
-        padding: 4px 0 0;
-        font-weight: 500;
-        line-height: 22px;
-        font-size: 18px;
-    }
-}
-
-.header__mobile-logout {
-    display: none;
-}
-
-@media screen and (min-width: 600px) {
-    .header__mobile-logout {
-        display: block;
-        border: none;
-        background-color: transparent;
-        cursor: pointer;
-        text-decoration: none;
-        margin: 0;
-        padding: 4px 30px 29px;
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 22px;
-        color: #a9a9a9;
-        transition: opacity 0.3s ease-in-out;
-        }
-    }
-
-.header__mobile-logout:hover {
-    opacity: .5;
-}
-
-@media screen and (min-width: 900px) {
-    .header__mobile-logout {
-        padding-right: 0;
-    }
 }

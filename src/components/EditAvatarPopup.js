@@ -6,7 +6,6 @@ function EditAvatarPopup(props) {
 
   const { isOpen, onClose, onUpdateAvatar, download, renderDownload, inputError, setInputError } = props;
   const avatarRef = useRef(null);
-
   const [link, setLink] = useState('');
 
   function handleLink(evt) {
