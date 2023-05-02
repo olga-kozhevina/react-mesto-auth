@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Routes, Route, Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import close from '../images/close-button.svg';
 import logo from '../images/logo.svg';
 import menu from '../images/header-menu-sign.svg';
@@ -13,7 +13,6 @@ function Header(props) {
     const location = useLocation();
     const textLink = location.pathname === '/sign-in' ? 'Регистрация' : 'Войти';
     const buttonText = loggedIn ? 'Выйти' : textLink;
-    const pathLink = location.pathname === '/sign-in' ? '/sign-up' : '/sign-in';
 
     // функция для смены значка меню на его содержимое
     const toggleMenu = () => {
@@ -33,10 +32,9 @@ function Header(props) {
 
             <div className="header__main">
                 <img src={logo} alt="Логотип Место" className="header__logo" />
-
                 <div className="header__links">
                     {!loggedIn && (
-                        <Link to={pathLink}
+                        <Link to={location.pathname === "/sign-in" ? "/sign-up" : "/sign-in"}
                             className="header__link header__logout">
                             {buttonText}
                         </Link>
@@ -61,7 +59,6 @@ function Header(props) {
                             )}
 
                             <p className="header__mobile-email">{email}</p>
-
                             <button className="header__mobile-logout" onClick={logOut}>
                                 {buttonText}
                             </button>
