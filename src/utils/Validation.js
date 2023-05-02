@@ -25,7 +25,7 @@ export const validateEmail = (value) => {
   if (!value) {
     return 'Email не может быть пустым';
   }
-  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const pattern = /^[\w-.+]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!pattern.test(value)) {
     return 'Введите корректный email: name@example.ru';
   }
@@ -36,8 +36,12 @@ export const validatePassword = (value) => {
   if (!value) {
     return 'Поле не может быть пустым';
   }
-  return value.length < 8 || !/^[A-Za-z0-9_-]+$/.test(value)
-    ? 'Пароль должен содержать не менее 8 символов и может состоять только из букв A-Z, a-z, цифр 0-9 и символов -_'
-    : '';
+  if (value.length < 8) {
+    return 'Пароль должен содержать не менее 8 символов';
+  }
+  if (!/^[A-Za-z0-9_-]+$/.test(value)) {
+    return 'Пароль может состоять только из букв A-Z, a-z, цифр 0-9 и символов -_';
+  }
+  return '';
 };
 
