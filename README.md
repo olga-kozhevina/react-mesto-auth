@@ -32,4 +32,4 @@
 - Роут / защищён HOC-компонентом ProtectedRoute.
 
 
-## [Ссылка на сайт проектной работы &rarr;](https://olpom.github.io/react-mesto-auth/)
+## [Ссылка на сайт проектной работы &rarr;](https://olga-kozhevina.github.io/react-mesto-auth/)
